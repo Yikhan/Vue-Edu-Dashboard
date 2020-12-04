@@ -1,4 +1,4 @@
-# edu-boss-fed
+# Edu-Dashboard
 
 ## Project setup
 ```

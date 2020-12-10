@@ -11,8 +11,10 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020
   },
+  // 更改rule之后需要删除node_modules下的.cache文件
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    // 'semi': ['error', 'never']
   }
 }

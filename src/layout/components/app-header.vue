@@ -11,13 +11,16 @@
         <el-avatar
           shape="square"
           :size="40"
-          src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
-        ></el-avatar
-        ><i class="el-icon-arrow-down el-icon--right"></i>
+          :src="user.portrait || require('@/assets/default-avatar.png')"
+        ></el-avatar>
+        <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>用户信息</el-dropdown-item>
-        <el-dropdown-item divided>退出</el-dropdown-item>
+        <el-dropdown-item>{{ user.userName }}</el-dropdown-item>
+        <el-dropdown-item
+          divided
+          @click.native="handleLogout"
+        >退出</el-dropdown-item>
         <el-dropdown-item></el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -26,9 +29,51 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { getUser } from '@/services/user'
 
 export default Vue.extend({
-  name: 'AppHeader'
+  name: 'AppHeader',
+  data () {
+    return {
+      user: {}
+    }
+  },
+  created () {
+    this.loadUser()
+  },
+  methods: {
+    async loadUser () {
+      const { data } = await getUser()
+      this.user = data.content
+    },
+    logout () {
+      // 清除当前用户
+      this.user = {}
+      this.$store.commit('setUser', null)
+      // 跳转到登录页面
+      this.$router.push({
+        name: 'login'
+      })
+    },
+    handleLogout () {
+      this.$confirm('确认退出吗?', '退出提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => { // 确认退出
+        this.logout()
+        this.$message({
+          type: 'success',
+          message: '退出成功！'
+        })
+      }).catch(() => { // 取消
+        this.$message({
+          type: 'info',
+          message: '已取消退出'
+        })
+      })
+    }
+  }
 })
 </script>
 

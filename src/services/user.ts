@@ -17,3 +17,14 @@ export const login = (data: LoginData) => {
     data: qs.stringify(data)
   })
 }
+
+export const getUser = () => {
+  return request({
+    method: 'GET',
+    url: '/front/user/getInfo'
+    // 在拦截器里面统一添加请求头后，下面的设置就不需要了
+    // headers: {
+    //   Authorization: store.state.user?.access_token
+    // }
+  })
+}

@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import request from '@/utils/request'
 import qs from 'qs'
 import { Form } from 'element-ui'
 import { login } from '@/services/user'
@@ -83,10 +82,9 @@ export default Vue.extend({
           this.$message.error(data.message)
         } else {
           // 成功：跳转到首页
+          this.$store.commit('setUser', data.content)
           this.$message.success('登录成功')
-          this.$router.push({
-            name: 'home'
-          })
+          this.$router.push(this.$route.query.redirect as string || '/')
         }
       } catch (err) {
         console.log('登录失败', err)

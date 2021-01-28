@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import qs from 'qs'
 import { Form } from 'element-ui'
 import { login } from '@/services/user'
 
@@ -48,7 +47,7 @@ export default Vue.extend({
   data () {
     return {
       form: {
-        phone: '15510792995',
+        phone: '18201288771',
         password: '111111'
       },
       isLoginLoading: false,

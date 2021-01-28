@@ -40,6 +40,8 @@ export default Vue.extend({
   },
   created () {
     this.loadUser()
+    this.loadUser()
+    this.loadUser()
   },
   methods: {
     async loadUser () {
